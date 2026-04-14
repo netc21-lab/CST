@@ -3,284 +3,1486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recicla — Compra y venta de segunda mano</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
+<title>CalebStore — Moda que vuelve a vivir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1a7a4a;
+    --green-light: #e8f5ee;
+    --green-mid: #2ea366;
+    --lime: #b8f04a;
+    --lime-dark: #8fc22a;
+    --cream: #faf8f3;
+    --cream-dark: #f0ece0;
+    --earth: #3d2b1a;
+    --earth-light: #6b4d32;
+    --text: #1c1c1c;
+    --muted: #6b6b6b;
+    --white: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --radius: 16px;
+    --radius-lg: 28px;
+    --radius-pill: 100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--green);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+  }
+
+  .btn-lime {
+    background: var(--lime);
+    color: var(--earth);
+    font-weight: 600;
+  }
+
+  .btn-lime:hover {
+    background: var(--lime-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-lg {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-light);
+    border: 1px solid rgba(26,122,74,0.2);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 24px;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--green-mid);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  h1 .accent {
+    color: var(--green);
+    position: relative;
+    display: inline-block;
+  }
+
+  h1 .lime-text {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--green);
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 36px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+  }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+    height: 560px;
+  }
+
+  .hero-card-main {
+    position: absolute;
+    top: 0; right: 0;
+    width: 320px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    animation: floatA 4s ease-in-out infinite;
+  }
+
+  @keyframes floatA {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .card-img {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, #d4edda 0%, #a8d5b5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: var(--lime);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  .card-body { padding: 20px; }
+
+  .card-tag {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .card-title-sm {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .card-brand {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .card-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .price-new {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .price-old {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .save-badge {
+    background: var(--lime);
+    color: var(--earth);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+  }
+
+  .hero-card-secondary {
+    position: absolute;
+    bottom: 60px; left: 0;
+    width: 240px;
+    background: var(--earth);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    animation: floatB 5s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  @keyframes floatB {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(-2deg); }
+  }
+
+  .card2-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .card2-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--lime);
+    margin-bottom: 4px;
+  }
+
+  .card2-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .hero-pill {
+    position: absolute;
+    top: 200px; left: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    white-space: nowrap;
+    animation: floatC 3.5s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes floatC {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  .pill-avatars {
+    display: flex;
+  }
+
+  .pill-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    margin-left: -6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .pill-avatar:first-child { margin-left: 0; background: #5b9bd5; }
+  .pill-avatar:nth-child(2) { background: #e87c5a; }
+  .pill-avatar:nth-child(3) { background: var(--green-mid); }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--green);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 25s linear infinite;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .marquee-sep {
+    color: var(--lime);
+    font-size: 18px;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* HOW IT WORKS */
+  .section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--lime);
+    border-radius: 2px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-intro {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 500px;
+    font-weight: 300;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* STEPS */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .step {
+    background: var(--cream);
+    padding: 48px 40px;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .step:hover { background: var(--cream-dark); }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--cream-dark);
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -3px;
+  }
+
+  .step-icon {
+    width: 48px; height: 48px;
+    background: var(--green-light);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .step p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* PRODUCTS */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .product-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    position: relative;
+  }
+
+  .product-img .condition {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--white);
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .product-img .wishlist {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .product-img .wishlist:hover {
+    background: #ffe0e0;
+    border-color: #f87171;
+  }
+
+  .product-info { padding: 16px; }
+
+  .product-brand {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .product-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .product-pricing {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .price-now {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .price-was {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .discount-tag {
+    margin-left: auto;
+    background: var(--lime);
+    color: var(--earth);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+  }
+
+  /* BG COLORS for product cards */
+  .bg1 { background: #e8f0fe; }
+  .bg2 { background: #fce8e8; }
+  .bg3 { background: #e8f5ee; }
+  .bg4 { background: #fef9e8; }
+
+  /* CATEGORIES */
+  .categories-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    margin-bottom: 40px;
+  }
+
+  .categories-strip::-webkit-scrollbar { display: none; }
+
+  .cat-pill {
+    flex-shrink: 0;
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .cat-pill.active, .cat-pill:hover {
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
+  }
+
+  /* IMPACT */
+  .impact-section {
+    background: var(--earth);
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .impact-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: var(--green);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  .impact-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40%;
+    width: 300px; height: 300px;
+    background: var(--lime);
+    border-radius: 50%;
+    opacity: 0.08;
+  }
+
+  .impact-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .impact-inner h2 { color: var(--white); }
+
+  .impact-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    max-width: 420px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .impact-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .impact-stat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+  }
+
+  .impact-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--lime);
+    letter-spacing: -2px;
+    margin-bottom: 4px;
+  }
+
+  .impact-stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .testimonial {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s;
+  }
+
+  .testimonial:hover { transform: translateY(-4px); }
+
+  .testimonial-quote {
+    font-size: 24px;
+    color: var(--lime-dark);
+    margin-bottom: 16px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+  }
+
+  .testimonial-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .author-detail {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .stars { color: #f59e0b; font-size: 12px; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--green);
+    border-radius: var(--radius-lg);
+    padding: 80px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 0 40px 100px;
+  }
+
+  .cta-section::before {
+    content: '♻';
+    position: absolute;
+    font-size: 280px;
+    color: rgba(255,255,255,0.04);
+    top: -60px; right: -40px;
+    line-height: 1;
+  }
+
+  .cta-section h2 { color: var(--white); margin-bottom: 16px; }
+
+  .cta-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+  }
+
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .btn-white:hover {
+    background: var(--cream);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost-white {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    color: var(--white);
+  }
+
+  .btn-ghost-white:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--text);
+    padding: 60px 40px 40px;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 220px;
+  }
+
+  .footer-col-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-links a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+
+  .footer-links a:hover { color: var(--lime); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-socials { display: flex; gap: 12px; }
+
+  .social-btn {
+    width: 36px; height: 36px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .social-btn:hover {
+    background: var(--lime);
+    color: var(--earth);
+    border-color: var(--lime);
+  }
+
+  /* SEARCH BAR */
+  .search-wrap {
+    display: flex;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--green); }
+
+  .search-input::placeholder { color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-visual { height: 400px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .section { padding: 60px 20px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .impact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .cta-section { padding: 50px 30px; margin: 0 20px 60px; }
+    footer { padding: 40px 20px; }
+    .footer-top { grid-template-columns: 1fr; gap: 30px; }
+    .hero-stats { gap: 24px; }
+    h1 { font-size: 38px; }
+  }
+
+  /* FADE IN ANIMATION */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-top">
-    <div class="container hti">
-      <a href="index.html" class="brand-logo">
-        <span class="logo-letter" data-brand="brand-letter">R</span>
-        <span class="logo-name" data-brand="brand-name">Recicla</span>
-      </a>
-      <div class="header-search">
-        <div class="search-bar">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="searchInput" placeholder="Buscar productos..." autocomplete="off">
-        </div>
-        <div class="search-res" id="searchRes"></div>
-      </div>
-      <div class="header-actions">
-        <a href="pages/favoritos.html" class="act-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span class="act-count" id="favCount">0</span>
-        </a>
-        <a href="pages/carrito.html" class="act-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="act-count" id="cartCount">0</span>
-        </a>
-        <a href="pages/cuenta.html" class="act-btn acc-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span id="accountLabel">Cuenta</span>
-        </a>
-        <a href="pages/vender.html" class="btn-sell-nav" id="btnSellNav">Vender ahora</a>
-      </div>
-      <button class="menu-tog" id="menuToggle"><span></span><span></span><span></span></button>
-    </div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <span>Resikla</span>
+    <span class="logo-dot"></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+    <li><a href="#productos">Explorar</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#vender">Vender</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#" class="btn btn-outline">Iniciar sesión</a>
+    <a href="#" class="btn btn-primary">Crear cuenta</a>
   </div>
-  <nav class="cat-nav">
-    <div class="container cat-nav-inner">
-      <a href="pages/productos.html" class="cat-link new">📈 Novedades</a>
-      <a href="pages/productos.html?cat=Mujeres"    class="cat-link">👗 Mujeres</a>
-      <a href="pages/productos.html?cat=Hombres"    class="cat-link">👔 Hombres</a>
-      <a href="pages/productos.html?cat=Niñas"      class="cat-link">👧 Niñas</a>
-      <a href="pages/productos.html?cat=Niños"      class="cat-link">👦 Niños</a>
-      <a href="pages/productos.html?cat=Bebés"      class="cat-link">🍼 Bebés</a>
-      <a href="pages/productos.html?cat=Electrónica"class="cat-link">📱 Electrónica</a>
-      <a href="pages/productos.html?cat=Hogar"      class="cat-link">🏠 Hogar</a>
-      <a href="pages/productos.html?cat=Juguetes"   class="cat-link">🧸 Juguetes</a>
-      <a href="pages/productos.html?cat=Deportes"   class="cat-link">⚽ Deportes</a>
-      <a href="pages/productos.html?cat=Libros"     class="cat-link">📚 Libros</a>
-      <a href="pages/productos.html?cat=Belleza"    class="cat-link">💄 Belleza</a>
-    </div>
-  </nav>
-</header>
-
-<!-- MOBILE MENU -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMob()"></div>
-<div class="mob-menu" id="mobMenu">
-  <div class="mob-hd">
-    <span class="logo-letter" data-brand="brand-letter" style="width:28px;height:28px;font-size:14px;border-radius:7px">R</span>
-    <span data-brand="brand-name">Recicla</span>
-    <button onclick="closeMob()">✕</button>
-  </div>
-  <nav class="mob-nav">
-    <a href="index.html">🏠 Inicio</a>
-    <a href="pages/productos.html">📈 Novedades</a>
-    <a href="pages/productos.html?cat=Mujeres">👗 Mujeres</a>
-    <a href="pages/productos.html?cat=Hombres">👔 Hombres</a>
-    <a href="pages/productos.html?cat=Niñas">👧 Niñas</a>
-    <a href="pages/productos.html?cat=Niños">👦 Niños</a>
-    <a href="pages/productos.html?cat=Bebés">🍼 Bebés</a>
-    <a href="pages/productos.html?cat=Electrónica">📱 Electrónica</a>
-    <a href="pages/productos.html?cat=Hogar">🏠 Hogar</a>
-    <a href="pages/productos.html?cat=Juguetes">🧸 Juguetes</a>
-    <a href="pages/productos.html?cat=Deportes">⚽ Deportes</a>
-    <a href="pages/productos.html?cat=Libros">📚 Libros</a>
-    <a href="pages/productos.html?cat=Belleza">💄 Belleza</a>
-    <hr>
-    <a href="pages/favoritos.html">❤️ Favoritos</a>
-    <a href="pages/carrito.html">🛒 Carrito</a>
-    <a href="pages/cuenta.html">👤 Mi cuenta</a>
-    <a href="pages/vender.html" style="color:var(--green);font-weight:800">♻️ Vender ahora</a>
-  </nav>
-</div>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-badge-pill" data-brand="heroBadge">♻️ Segunda mano</div>
-        <h1 class="hero-title" data-brand="hero-title">Dale una segunda vida
-a tus cosas</h1>
-        <p class="hero-sub" data-brand="hero-sub">Compra y vende artículos usados de calidad. Moda circular, precio justo.</p>
-        <div class="hero-btns">
-          <a href="pages/productos.html" class="btn-hero-p" data-brand="hero-cta">Ver productos</a>
-          <a href="pages/vender.html" class="btn-hero-o" data-brand="hero-sell-cta">Empieza a vender</a>
+  <div class="hero-content fade-up">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Moda circular en Perú
+    </div>
+    <h1>
+      Tu ropa merece<br>
+      una segunda <span class="accent">vida</span>
+    </h1>
+    <p class="hero-desc">
+      Compra y vende artículos de segunda mano de tus marcas favoritas. Ahorra dinero, cuida el planeta y dale una nueva oportunidad a la moda.
+    </p>
+    <div class="hero-actions">
+      <a href="#productos" class="btn btn-primary btn-lg">Explorar productos</a>
+      <a href="#vender" class="btn btn-outline btn-lg">Quiero vender →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">+12K</span>
+        <span class="stat-label">Productos activos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">8.4K</span>
+        <span class="stat-label">Vendedores</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">-70%</span>
+        <span class="stat-label">Precio promedio</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-main">
+      <div class="card-img bg1">👟</div>
+      <div class="card-body">
+        <span class="card-tag">Como nuevo</span>
+        <div class="card-title-sm">Zapatillas Runner Pro</div>
+        <div class="card-brand">Nike · Talla 40</div>
+        <div class="card-price-row">
+          <div>
+            <span class="price-new">S/ 189</span>
+            <span class="price-old">S/ 480</span>
+          </div>
+          <span class="save-badge">-61%</span>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-vc"><span class="hero-vc-ico">👗</span>Ropa desde S/ 15</div>
-        <div class="hero-vc"><span class="hero-vc-ico">📱</span>Electrónica</div>
-        <div class="hero-vc"><span class="hero-vc-ico">🧸</span>Juguetes</div>
-        <div class="hero-vc"><span class="hero-vc-ico">👟</span>Calzado</div>
+    </div>
+
+    <div class="hero-pill">
+      <div class="pill-avatars">
+        <div class="pill-avatar">A</div>
+        <div class="pill-avatar">B</div>
+        <div class="pill-avatar">C</div>
+      </div>
+      142 personas viendo esto hoy
+    </div>
+
+    <div class="hero-card-secondary">
+      <div class="card2-label">CO₂ ahorrado</div>
+      <div class="card2-value">2.4 kg</div>
+      <div class="card2-desc">Por cada compra de segunda mano</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Nike <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Adidas <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Levi's <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Zara <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">H&M <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Puma <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Tommy <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Lacoste <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Converse <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Reebok <span class="marquee-sep">✦</span></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Nike <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Adidas <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Levi's <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Zara <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">H&M <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Puma <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Tommy <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Lacoste <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Converse <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Reebok <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="como-funciona">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-label">¿Cómo funciona?</div>
+      <h2>Simple, rápido<br>y sostenible</h2>
+    </div>
+    <p class="section-intro">Todo el proceso de compra y venta está diseñado para que sea tan fácil como respirar.</p>
+  </div>
+
+  <div class="steps-grid fade-up">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📦</div>
+      <h3>Registra tu producto</h3>
+      <p>Sube fotos, indica el estado y pon tu precio. Solo necesitas haber comprado el artículo en tienda.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">🏪</div>
+      <h3>Llévalo a tienda</h3>
+      <p>Deposita tu artículo en la tienda más cercana. Nuestro equipo lo verifica y lo pone en venta por ti.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">💸</div>
+      <h3>Recibe tu pago</h3>
+      <p>Cuando tu producto se vende, te notificamos y abonamos el monto en tu monedero virtual al instante.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="section" id="productos">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-label">Catálogo</div>
+      <h2>Descubre lo<br>que te espera</h2>
+    </div>
+    <a href="#" class="btn btn-outline">Ver todo el catálogo →</a>
+  </div>
+
+  <div class="categories-strip fade-up">
+    <button class="cat-pill active">Todos</button>
+    <button class="cat-pill">Zapatillas</button>
+    <button class="cat-pill">Ropa mujer</button>
+    <button class="cat-pill">Ropa hombre</button>
+    <button class="cat-pill">Accesorios</button>
+    <button class="cat-pill">Bolsos</button>
+    <button class="cat-pill">Deportivo</button>
+    <button class="cat-pill">Casual</button>
+  </div>
+
+  <div class="products-grid fade-up">
+    <div class="product-card">
+      <div class="product-img bg1" style="font-size:60px;">
+        👟
+        <span class="condition">⭐ Excelente</span>
+        <span class="wishlist">♡</span>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Nike</div>
+        <div class="product-name">Air Max 270 React</div>
+        <div class="product-pricing">
+          <span class="price-now">S/ 210</span>
+          <span class="price-was">S/ 550</span>
+          <span class="discount-tag">-62%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img bg2" style="font-size:60px;">
+        👗
+        <span class="condition">✨ Como nuevo</span>
+        <span class="wishlist">♡</span>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Vestido midi floral</div>
+        <div class="product-pricing">
+          <span class="price-now">S/ 75</span>
+          <span class="price-was">S/ 220</span>
+          <span class="discount-tag">-66%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img bg3" style="font-size:60px;">
+        🎒
+        <span class="condition">👍 Buen estado</span>
+        <span class="wishlist">♡</span>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Adidas</div>
+        <div class="product-name">Mochila Originals</div>
+        <div class="product-pricing">
+          <span class="price-now">S/ 95</span>
+          <span class="price-was">S/ 280</span>
+          <span class="discount-tag">-66%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img bg4" style="font-size:60px;">
+        👕
+        <span class="condition">✨ Como nuevo</span>
+        <span class="wishlist">♡</span>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Tommy Hilfiger</div>
+        <div class="product-name">Polo Classic Logo</div>
+        <div class="product-pricing">
+          <span class="price-now">S/ 88</span>
+          <span class="price-was">S/ 250</span>
+          <span class="discount-tag">-65%</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CATEGORÍAS -->
+<!-- IMPACT -->
+<div class="impact-section" id="impacto">
+  <div class="impact-inner">
+    <div class="fade-up">
+      <div class="section-label" style="color: var(--lime);">Nuestro impacto</div>
+      <h2 style="color: white; margin-bottom: 16px;">Cada compra<br>importa</h2>
+      <p class="impact-desc">
+        La industria de la moda es la segunda más contaminante del mundo. Elegir segunda mano reduce la huella de carbono y extiende la vida útil de cada prenda.
+      </p>
+      <a href="#" class="btn btn-lime btn-lg">Conoce más →</a>
+    </div>
+
+    <div class="impact-stats fade-up">
+      <div class="impact-stat">
+        <div class="impact-stat-num">3.2T</div>
+        <div class="impact-stat-label">Toneladas de CO₂ ahorradas en el último año</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-stat-num">18K</div>
+        <div class="impact-stat-label">Prendas que encontraron nuevo hogar</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-stat-num">94%</div>
+        <div class="impact-stat-label">Compradores que repiten su experiencia</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-stat-num">S/2M</div>
+        <div class="impact-stat-label">Devueltos a los bolsillos de peruanos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
 <section class="section">
-  <div class="container">
-    <div class="section-hd">
-      <h2 class="section-title">Explorar categorías</h2>
-      <a href="pages/productos.html" class="see-all">Ver todo →</a>
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-label">Testimonios</div>
+      <h2>Lo que dicen<br>nuestros usuarios</h2>
     </div>
-    <div class="cats-grid">
-      <a href="pages/productos.html?cat=Mujeres"    class="cat-card"><span class="cat-ico">👗</span><span class="cat-nm">Mujeres</span></a>
-      <a href="pages/productos.html?cat=Hombres"    class="cat-card"><span class="cat-ico">👔</span><span class="cat-nm">Hombres</span></a>
-      <a href="pages/productos.html?cat=Niñas"      class="cat-card"><span class="cat-ico">👧</span><span class="cat-nm">Niñas</span></a>
-      <a href="pages/productos.html?cat=Niños"      class="cat-card"><span class="cat-ico">👦</span><span class="cat-nm">Niños</span></a>
-      <a href="pages/productos.html?cat=Bebés"      class="cat-card"><span class="cat-ico">🍼</span><span class="cat-nm">Bebés</span></a>
-      <a href="pages/productos.html?cat=Electrónica"class="cat-card"><span class="cat-ico">📱</span><span class="cat-nm">Electrónica</span></a>
-      <a href="pages/productos.html?cat=Hogar"      class="cat-card"><span class="cat-ico">🏠</span><span class="cat-nm">Hogar</span></a>
-      <a href="pages/productos.html?cat=Juguetes"   class="cat-card"><span class="cat-ico">🧸</span><span class="cat-nm">Juguetes</span></a>
-      <a href="pages/productos.html?cat=Deportes"   class="cat-card"><span class="cat-ico">⚽</span><span class="cat-nm">Deportes</span></a>
-      <a href="pages/productos.html?cat=Libros"     class="cat-card"><span class="cat-ico">📚</span><span class="cat-nm">Libros</span></a>
-      <a href="pages/productos.html?cat=Belleza"    class="cat-card"><span class="cat-ico">💄</span><span class="cat-nm">Belleza</span></a>
-      <a href="pages/productos.html?cat=Mascotas"   class="cat-card"><span class="cat-ico">🐾</span><span class="cat-nm">Mascotas</span></a>
+  </div>
+
+  <div class="testimonials-grid fade-up">
+    <div class="testimonial">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Vendí mis zapatillas en menos de una semana. El proceso fue súper sencillo y recibí el pago rápido. ¡Ya tengo 3 ventas!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background: #5b9bd5;">LP</div>
+        <div>
+          <div class="author-name">Lucía Paredes</div>
+          <div class="author-detail">Vendedora · Lima</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Conseguí unas Nikes casi nuevas por menos de la mitad del precio. La verificación de la tienda me dio mucha confianza.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background: var(--green-mid);">MR</div>
+        <div>
+          <div class="author-name">Mario Ríos</div>
+          <div class="author-detail">Comprador · Miraflores</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Me encanta que puedo renovar mi armario sin gastar mucho. Además sé que estoy ayudando al planeta. ¡Es una app que engancha!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background: #e87c5a;">CG</div>
+        <div>
+          <div class="author-name">Camila Godoy</div>
+          <div class="author-detail">Compradora · San Isidro</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- NOVEDADES -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-hd">
-      <h2 class="section-title">✨ Últimas novedades</h2>
-      <a href="pages/productos.html" class="see-all">Ver todo →</a>
-    </div>
-    <div class="products-grid" id="homeNewGrid"></div>
+<!-- CTA -->
+<div class="cta-section fade-up" id="vender">
+  <h2>¿Listo para empezar?</h2>
+  <p class="cta-desc">Únete a miles de peruanos que ya están comprando y vendiendo moda de segunda mano. Fácil, seguro y 100% circular.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn btn-white btn-lg">Crear cuenta gratis</a>
+    <a href="#" class="btn btn-ghost-white btn-lg">Ver cómo vender</a>
   </div>
-</section>
+</div>
 
-<!-- BANNER VENDER -->
-<section class="sell-banner">
-  <div class="container">
-    <div class="sb-grid">
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
       <div>
-        <h2 class="sb-title" data-brand="sellBannerTitle">¿Tienes objetos que ya no usas?</h2>
-        <p class="sb-sub" data-brand="sellBannerSub">Súbelos en minutos y empieza a ganar dinero.</p>
-        <ul class="sb-benefits">
-          <li>✅ Sin comisiones ocultas</li>
-          <li>✅ Pago seguro garantizado</li>
-          <li>✅ Miles de compradores activos</li>
+        <div class="footer-logo">Resikla <span class="logo-dot" style="background:var(--lime)"></span></div>
+        <p class="footer-tagline">La plataforma peruana de moda circular. Compra, vende y cuida el planeta.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Explorar</div>
+        <ul class="footer-links">
+          <li><a href="#">Zapatillas</a></li>
+          <li><a href="#">Ropa mujer</a></li>
+          <li><a href="#">Ropa hombre</a></li>
+          <li><a href="#">Accesorios</a></li>
+          <li><a href="#">Bolsos</a></li>
         </ul>
       </div>
       <div>
-        <div class="sb-steps">
-          <div class="sb-step"><span>1</span>Sube tus fotos</div>
-          <div class="sb-step"><span>2</span>Fija tu precio</div>
-          <div class="sb-step"><span>3</span>¡Vende!</div>
-        </div>
-        <a href="pages/vender.html" class="btn-sell-big">Empezar a vender gratis</a>
+        <div class="footer-col-title">Empresa</div>
+        <ul class="footer-links">
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Impacto</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Soporte</div>
+        <ul class="footer-links">
+          <li><a href="#">Centro de ayuda</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#">Términos de uso</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- DESTACADOS -->
-<section class="section">
-  <div class="container">
-    <div class="section-hd">
-      <h2 class="section-title">🔥 Más populares</h2>
-      <a href="pages/productos.html?sort=popular" class="see-all">Ver todo →</a>
-    </div>
-    <div class="products-grid" id="homePopGrid"></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="footer-logo-row">
-        <span class="logo-letter sm" data-brand="brand-letter">R</span>
-        <span data-brand="brand-name">Recicla</span>
-      </div>
-      <p class="footer-desc" data-brand="footer-text">Marketplace de artículos de segunda mano.</p>
-      <div class="footer-social">
-        <a href="#" class="social-link">📘 Facebook</a>
-        <a href="#" class="social-link">📷 Instagram</a>
-        <a href="#" class="social-link">🐦 Twitter</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Comprar</h4>
-      <a href="pages/productos.html">Todos los productos</a>
-      <a href="pages/productos.html">Novedades</a>
-      <a href="pages/favoritos.html">Mis favoritos</a>
-      <a href="pages/carrito.html">Mi carrito</a>
-    </div>
-    <div class="footer-col">
-      <h4>Vender</h4>
-      <a href="pages/vender.html">Publicar artículo</a>
-      <a href="pages/cuenta.html">Mi cuenta</a>
-      <a href="pages/cuenta.html">Mis pedidos</a>
-    </div>
-    <div class="footer-col">
-      <h4>Ayuda</h4>
-      <a href="#">Centro de ayuda</a>
-      <a href="#">Términos y condiciones</a>
-      <a href="#">Política de privacidad</a>
-      <a href="#">Contacto</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <span class="footer-copy" data-brand="footer-copy">© 2025 Recicla. Todos los derechos reservados.</span>
-      <div class="footer-pay">
-        <span>💳 Visa</span><span>💳 Mastercard</span><span>📱 Yape</span><span>📱 Plin</span>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Resikla. Hecho con 💚 en Lima, Perú.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">fb</a>
+        <a href="#" class="social-btn">tt</a>
+        <a href="#" class="social-btn">yt</a>
       </div>
     </div>
   </div>
 </footer>
 
-<div id="toast"></div>
-<div class="cart-overlay" id="cartOverlay" onclick="closeCartSidebar()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cs-hd"><h3>🛒 Mi carrito</h3><button onclick="closeCartSidebar()">✕</button></div>
-  <div class="cs-body" id="cartSidebarBody"></div>
-  <div class="cs-foot" id="cartSidebarFooter"></div>
-</div>
-
-<script src="js/config.js"></script>
-<script src="js/store.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // render products
-  const newGrid = document.getElementById('homeNewGrid');
-  const popGrid = document.getElementById('homePopGrid');
-  const newest = Store.filter({sort:'newest'}).slice(0,8);
-  const popular = Store.filter({sort:'popular'}).slice(0,8);
-  if(newGrid) newGrid.innerHTML = newest.map(p=>pCard(p)).join('');
-  if(popGrid) popGrid.innerHTML = popular.map(p=>pCard(p)).join('');
-
-  // search
-  let st;
-  document.getElementById('searchInput')?.addEventListener('input', function(){
-    clearTimeout(st);
-    const q = this.value.trim();
-    const res = document.getElementById('searchRes');
-    if(!q){ res.classList.remove('open'); return; }
-    st = setTimeout(()=>{
-      const items = Store.filter({search:q}).slice(0,6);
-      if(!items.length){ res.innerHTML='<div style="padding:18px;text-align:center;color:var(--g400);font-size:14px">Sin resultados</div>'; }
-      else res.innerHTML = items.map(p=>`<a href="pages/producto.html?id=${p.id}" class="sri" onclick="document.getElementById('searchRes').classList.remove('open')"><div class="sri-img">${p.imgUrl?`<img src="${p.imgUrl}">`:(p.img||'📦')}</div><div><div class="sri-name">${esc(p.nombre)}</div><div class="sri-cat">${esc(p.cat)}</div><div class="sri-price">${$C(p.precio)}</div></div></a>`).join('');
-      res.classList.add('open');
-    }, 200);
-  });
-  document.addEventListener('click', e=>{ if(!e.target.closest('.header-search')) document.getElementById('searchRes')?.classList.remove('open'); });
-
-  // mobile menu
-  document.getElementById('menuToggle')?.addEventListener('click', ()=>{
-    document.getElementById('mobMenu').classList.add('open');
-    document.getElementById('mobOverlay').classList.add('open');
-    document.body.style.overflow='hidden';
+  // Category pills
+  document.querySelectorAll('.cat-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
   });
 
-  // cart icon
-  document.querySelectorAll('a[href="pages/carrito.html"]').forEach(el=>{
-    el.addEventListener('click', e=>{ e.preventDefault(); openCartSidebar(); });
+  // Wishlist toggle
+  document.querySelectorAll('.wishlist').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+      btn.style.background = btn.textContent === '♥' ? '#ffe0e0' : '';
+      btn.style.color = btn.textContent === '♥' ? '#ef4444' : '';
+    });
   });
-});
-function closeMob(){ document.getElementById('mobMenu').classList.remove('open'); document.getElementById('mobOverlay').classList.remove('open'); document.body.style.overflow=''; }
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
