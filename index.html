@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recicla — Compra y venta de segunda mano</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="container hti">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-letter" data-brand="brand-letter">R</span>
+        <span class="logo-name" data-brand="brand-name">Recicla</span>
+      </a>
+      <div class="header-search">
+        <div class="search-bar">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar productos..." autocomplete="off">
+        </div>
+        <div class="search-res" id="searchRes"></div>
+      </div>
+      <div class="header-actions">
+        <a href="pages/favoritos.html" class="act-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="act-count" id="favCount">0</span>
+        </a>
+        <a href="pages/carrito.html" class="act-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="act-count" id="cartCount">0</span>
+        </a>
+        <a href="pages/cuenta.html" class="act-btn acc-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="accountLabel">Cuenta</span>
+        </a>
+        <a href="pages/vender.html" class="btn-sell-nav" id="btnSellNav">Vender ahora</a>
+      </div>
+      <button class="menu-tog" id="menuToggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="cat-nav">
+    <div class="container cat-nav-inner">
+      <a href="pages/productos.html" class="cat-link new">📈 Novedades</a>
+      <a href="pages/productos.html?cat=Mujeres"    class="cat-link">👗 Mujeres</a>
+      <a href="pages/productos.html?cat=Hombres"    class="cat-link">👔 Hombres</a>
+      <a href="pages/productos.html?cat=Niñas"      class="cat-link">👧 Niñas</a>
+      <a href="pages/productos.html?cat=Niños"      class="cat-link">👦 Niños</a>
+      <a href="pages/productos.html?cat=Bebés"      class="cat-link">🍼 Bebés</a>
+      <a href="pages/productos.html?cat=Electrónica"class="cat-link">📱 Electrónica</a>
+      <a href="pages/productos.html?cat=Hogar"      class="cat-link">🏠 Hogar</a>
+      <a href="pages/productos.html?cat=Juguetes"   class="cat-link">🧸 Juguetes</a>
+      <a href="pages/productos.html?cat=Deportes"   class="cat-link">⚽ Deportes</a>
+      <a href="pages/productos.html?cat=Libros"     class="cat-link">📚 Libros</a>
+      <a href="pages/productos.html?cat=Belleza"    class="cat-link">💄 Belleza</a>
+    </div>
+  </nav>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMob()"></div>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-hd">
+    <span class="logo-letter" data-brand="brand-letter" style="width:28px;height:28px;font-size:14px;border-radius:7px">R</span>
+    <span data-brand="brand-name">Recicla</span>
+    <button onclick="closeMob()">✕</button>
+  </div>
+  <nav class="mob-nav">
+    <a href="index.html">🏠 Inicio</a>
+    <a href="pages/productos.html">📈 Novedades</a>
+    <a href="pages/productos.html?cat=Mujeres">👗 Mujeres</a>
+    <a href="pages/productos.html?cat=Hombres">👔 Hombres</a>
+    <a href="pages/productos.html?cat=Niñas">👧 Niñas</a>
+    <a href="pages/productos.html?cat=Niños">👦 Niños</a>
+    <a href="pages/productos.html?cat=Bebés">🍼 Bebés</a>
+    <a href="pages/productos.html?cat=Electrónica">📱 Electrónica</a>
+    <a href="pages/productos.html?cat=Hogar">🏠 Hogar</a>
+    <a href="pages/productos.html?cat=Juguetes">🧸 Juguetes</a>
+    <a href="pages/productos.html?cat=Deportes">⚽ Deportes</a>
+    <a href="pages/productos.html?cat=Libros">📚 Libros</a>
+    <a href="pages/productos.html?cat=Belleza">💄 Belleza</a>
+    <hr>
+    <a href="pages/favoritos.html">❤️ Favoritos</a>
+    <a href="pages/carrito.html">🛒 Carrito</a>
+    <a href="pages/cuenta.html">👤 Mi cuenta</a>
+    <a href="pages/vender.html" style="color:var(--green);font-weight:800">♻️ Vender ahora</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge-pill" data-brand="heroBadge">♻️ Segunda mano</div>
+        <h1 class="hero-title" data-brand="hero-title">Dale una segunda vida
+a tus cosas</h1>
+        <p class="hero-sub" data-brand="hero-sub">Compra y vende artículos usados de calidad. Moda circular, precio justo.</p>
+        <div class="hero-btns">
+          <a href="pages/productos.html" class="btn-hero-p" data-brand="hero-cta">Ver productos</a>
+          <a href="pages/vender.html" class="btn-hero-o" data-brand="hero-sell-cta">Empieza a vender</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-vc"><span class="hero-vc-ico">👗</span>Ropa desde S/ 15</div>
+        <div class="hero-vc"><span class="hero-vc-ico">📱</span>Electrónica</div>
+        <div class="hero-vc"><span class="hero-vc-ico">🧸</span>Juguetes</div>
+        <div class="hero-vc"><span class="hero-vc-ico">👟</span>Calzado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section class="section">
+  <div class="container">
+    <div class="section-hd">
+      <h2 class="section-title">Explorar categorías</h2>
+      <a href="pages/productos.html" class="see-all">Ver todo →</a>
+    </div>
+    <div class="cats-grid">
+      <a href="pages/productos.html?cat=Mujeres"    class="cat-card"><span class="cat-ico">👗</span><span class="cat-nm">Mujeres</span></a>
+      <a href="pages/productos.html?cat=Hombres"    class="cat-card"><span class="cat-ico">👔</span><span class="cat-nm">Hombres</span></a>
+      <a href="pages/productos.html?cat=Niñas"      class="cat-card"><span class="cat-ico">👧</span><span class="cat-nm">Niñas</span></a>
+      <a href="pages/productos.html?cat=Niños"      class="cat-card"><span class="cat-ico">👦</span><span class="cat-nm">Niños</span></a>
+      <a href="pages/productos.html?cat=Bebés"      class="cat-card"><span class="cat-ico">🍼</span><span class="cat-nm">Bebés</span></a>
+      <a href="pages/productos.html?cat=Electrónica"class="cat-card"><span class="cat-ico">📱</span><span class="cat-nm">Electrónica</span></a>
+      <a href="pages/productos.html?cat=Hogar"      class="cat-card"><span class="cat-ico">🏠</span><span class="cat-nm">Hogar</span></a>
+      <a href="pages/productos.html?cat=Juguetes"   class="cat-card"><span class="cat-ico">🧸</span><span class="cat-nm">Juguetes</span></a>
+      <a href="pages/productos.html?cat=Deportes"   class="cat-card"><span class="cat-ico">⚽</span><span class="cat-nm">Deportes</span></a>
+      <a href="pages/productos.html?cat=Libros"     class="cat-card"><span class="cat-ico">📚</span><span class="cat-nm">Libros</span></a>
+      <a href="pages/productos.html?cat=Belleza"    class="cat-card"><span class="cat-ico">💄</span><span class="cat-nm">Belleza</span></a>
+      <a href="pages/productos.html?cat=Mascotas"   class="cat-card"><span class="cat-ico">🐾</span><span class="cat-nm">Mascotas</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- NOVEDADES -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-hd">
+      <h2 class="section-title">✨ Últimas novedades</h2>
+      <a href="pages/productos.html" class="see-all">Ver todo →</a>
+    </div>
+    <div class="products-grid" id="homeNewGrid"></div>
+  </div>
+</section>
+
+<!-- BANNER VENDER -->
+<section class="sell-banner">
+  <div class="container">
+    <div class="sb-grid">
+      <div>
+        <h2 class="sb-title" data-brand="sellBannerTitle">¿Tienes objetos que ya no usas?</h2>
+        <p class="sb-sub" data-brand="sellBannerSub">Súbelos en minutos y empieza a ganar dinero.</p>
+        <ul class="sb-benefits">
+          <li>✅ Sin comisiones ocultas</li>
+          <li>✅ Pago seguro garantizado</li>
+          <li>✅ Miles de compradores activos</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sb-steps">
+          <div class="sb-step"><span>1</span>Sube tus fotos</div>
+          <div class="sb-step"><span>2</span>Fija tu precio</div>
+          <div class="sb-step"><span>3</span>¡Vende!</div>
+        </div>
+        <a href="pages/vender.html" class="btn-sell-big">Empezar a vender gratis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTACADOS -->
+<section class="section">
+  <div class="container">
+    <div class="section-hd">
+      <h2 class="section-title">🔥 Más populares</h2>
+      <a href="pages/productos.html?sort=popular" class="see-all">Ver todo →</a>
+    </div>
+    <div class="products-grid" id="homePopGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-logo-row">
+        <span class="logo-letter sm" data-brand="brand-letter">R</span>
+        <span data-brand="brand-name">Recicla</span>
+      </div>
+      <p class="footer-desc" data-brand="footer-text">Marketplace de artículos de segunda mano.</p>
+      <div class="footer-social">
+        <a href="#" class="social-link">📘 Facebook</a>
+        <a href="#" class="social-link">📷 Instagram</a>
+        <a href="#" class="social-link">🐦 Twitter</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Comprar</h4>
+      <a href="pages/productos.html">Todos los productos</a>
+      <a href="pages/productos.html">Novedades</a>
+      <a href="pages/favoritos.html">Mis favoritos</a>
+      <a href="pages/carrito.html">Mi carrito</a>
+    </div>
+    <div class="footer-col">
+      <h4>Vender</h4>
+      <a href="pages/vender.html">Publicar artículo</a>
+      <a href="pages/cuenta.html">Mi cuenta</a>
+      <a href="pages/cuenta.html">Mis pedidos</a>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="#">Centro de ayuda</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Política de privacidad</a>
+      <a href="#">Contacto</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <span class="footer-copy" data-brand="footer-copy">© 2025 Recicla. Todos los derechos reservados.</span>
+      <div class="footer-pay">
+        <span>💳 Visa</span><span>💳 Mastercard</span><span>📱 Yape</span><span>📱 Plin</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartSidebar()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cs-hd"><h3>🛒 Mi carrito</h3><button onclick="closeCartSidebar()">✕</button></div>
+  <div class="cs-body" id="cartSidebarBody"></div>
+  <div class="cs-foot" id="cartSidebarFooter"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // render products
+  const newGrid = document.getElementById('homeNewGrid');
+  const popGrid = document.getElementById('homePopGrid');
+  const newest = Store.filter({sort:'newest'}).slice(0,8);
+  const popular = Store.filter({sort:'popular'}).slice(0,8);
+  if(newGrid) newGrid.innerHTML = newest.map(p=>pCard(p)).join('');
+  if(popGrid) popGrid.innerHTML = popular.map(p=>pCard(p)).join('');
+
+  // search
+  let st;
+  document.getElementById('searchInput')?.addEventListener('input', function(){
+    clearTimeout(st);
+    const q = this.value.trim();
+    const res = document.getElementById('searchRes');
+    if(!q){ res.classList.remove('open'); return; }
+    st = setTimeout(()=>{
+      const items = Store.filter({search:q}).slice(0,6);
+      if(!items.length){ res.innerHTML='<div style="padding:18px;text-align:center;color:var(--g400);font-size:14px">Sin resultados</div>'; }
+      else res.innerHTML = items.map(p=>`<a href="pages/producto.html?id=${p.id}" class="sri" onclick="document.getElementById('searchRes').classList.remove('open')"><div class="sri-img">${p.imgUrl?`<img src="${p.imgUrl}">`:(p.img||'📦')}</div><div><div class="sri-name">${esc(p.nombre)}</div><div class="sri-cat">${esc(p.cat)}</div><div class="sri-price">${$C(p.precio)}</div></div></a>`).join('');
+      res.classList.add('open');
+    }, 200);
+  });
+  document.addEventListener('click', e=>{ if(!e.target.closest('.header-search')) document.getElementById('searchRes')?.classList.remove('open'); });
+
+  // mobile menu
+  document.getElementById('menuToggle')?.addEventListener('click', ()=>{
+    document.getElementById('mobMenu').classList.add('open');
+    document.getElementById('mobOverlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+
+  // cart icon
+  document.querySelectorAll('a[href="pages/carrito.html"]').forEach(el=>{
+    el.addEventListener('click', e=>{ e.preventDefault(); openCartSidebar(); });
+  });
+});
+function closeMob(){ document.getElementById('mobMenu').classList.remove('open'); document.getElementById('mobOverlay').classList.remove('open'); document.body.style.overflow=''; }
+</script>
+</body>
+</html>
